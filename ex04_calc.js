@@ -1,13 +1,16 @@
 const http = require('http');
 // express 모듈 설치 > npm i -S express.
 const express = require('express');
-
 //라우터 미들웨어 사용.
 const router = express.Router();
+// cors 미들웨어 설정
+const cors = require('cors');
 
 // app 객체 생성 및 속성 정의(내부적으로 app객체가 존재) 
 const app = express();
 app.set('port', 3000);
+// cross domain 문제를 cors 미들웨어로 해결
+app.use(cors());
 
 router.route('/').get((req, res)=>{
     res.end('/ GET request...');

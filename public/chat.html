@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 300px;
+            height: 300px;
+            border: 1px solid red;
+            overflow: scroll;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery.js"></script>
+</head>
+
+<body>
+    <form>
+        <div id="box"></div>
+        사용자 : <input type="text" name="sender"><br>
+        메세지 : <input type="text" name="message">
+        <input type="submit" value="전송">
+    </form>
+    <script>
+        let URL = "http://localhost:3000/send";
+        let size = 0;
+        $.get(URL, (data, status) => {
+            let chatData = JSON.parse(data);
+            size = chatData.send;
+            $('#box').html(`나 : ${chatData.send}<br>상대방: ${chatData.recive}`);
+        });
+        setInterval(() => {
+            let URL2 = "http://localhost:3000/recieve" + size;
+            $.get(URL2, (data, status) => {
+                if (status == 'success' && data != "") {
+                    let chatData = JSON.parse(data);
+                    $('#box').html(`나 : ${chatData.send}<br>상대방: ${chatData.recive}`);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

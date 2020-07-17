@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중고 자동차 목록</title>
+</head>
+<body>
+    <h1>KOSMO 중고 자동차 매매 단지</h1>
+    <hr>
+    검색 : <input type="text"><input type="button" value="검색">
+    <hr>
+    <table border="1px" width="100%" style = "border-collapse: collapse;">
+        <tr>
+            <th>차종</th>
+            <th>가격</th>
+            <th>제조사</th>
+            <th>연식</th>
+        </tr>
+        <%
+        for(let i = 0; i<cars.length; i++){
+        %>
+        <tr>
+            <td><a href="/cars/detail?idx=<%=cars[i].idx%>"><%=cars[i].name%></a></td>
+            <td><%=cars[i].price%></td>
+            <td><%=cars[i].company%></td>
+            <td><%=cars[i].year%></td>
+        </tr>
+        <%
+        } // end of for
+        %>
+    </table>
+    <a href="/car_input.html">자동차 추가하기</a>
+</body>
+</html>

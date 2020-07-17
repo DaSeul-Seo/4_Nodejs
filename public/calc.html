@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="clac_form">
+    <form id="calc_form">
         <input type="text" size="3" name="a" value="10">
         <input type="text" size="3" name="b" value="10">
         <select name="oper">
@@ -18,5 +18,30 @@
         <input type="submit" value="결과">
     </form>
     <div id="resultBox"></div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        $('#calc_form').submit(function(){
+            event.preventDefault(); // 기능 일시중지
+            let form = $(this)[0];
+            let URL = 'http://localhost:3000/calc/';
+            let a = $(form.a).val();
+            let b = $(form.b).val();
+            let oper = $(form.oper).val();
+            // URL = URL + form.a.value + '/' + form.b.value;
+            URL = URL + oper+ '/' +a + '/' + b;
+            console.log(URL);
+            let operMap = {
+                "plus":'+',
+                "minus":'-',
+                "multi":'*',
+                "div":'/'
+            };
+            $.get(URL, (data, status)=>{
+                // 포멧(``)
+               $('#resultBox').html(`<h3>${a} ${operMap[oper]} ${b} = ${data}</h3>`);
+            });
+        });
+        // npm i cors -S => 크로스 도메인 문제해결
+    </script>
 </body>
 </html>

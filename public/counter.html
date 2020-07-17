@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>접속자 카운터</h1>
+    <hr>
+    <div id="result"></div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        // npm i -S serve-static
+        let URL = "http://localhost:3000/count";
+        let size = 0;
+        $.get(URL, (data, status)=>{
+            let cntData = JSON.parse(data);
+            size = cntData.count;
+            $('#result').html(`날짜: ${cntData.dateStr}<br>카운트: ${cntData.count}`);
+        });
+        setInterval(()=>{
+            let URL2 = "http://localhost:3000/compare/" + size;
+            $.get(URL2, (data, status)=>{
+                if(status=='success'&&data!=""){
+                    let cntData = JSON.parse(data);
+                    $('#result').html(`날짜: ${cntData.dateStr}<br>카운트: ${cntData.count}`);
+                }
+            });
+        },1000);
+    </script>
+</body>
+</html>
