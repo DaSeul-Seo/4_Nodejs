@@ -34,8 +34,6 @@ router.route('/').get((req, res)=>{
     });
 });
 
-
-
 // 라우터 미들웨어는 서버 실행 전에 설정.
 app.use('/', router);
 const server = http.createServer(app);
